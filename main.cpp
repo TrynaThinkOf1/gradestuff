@@ -1,7 +1,39 @@
+#include <stdexcept>
 #include <map>
 #include <iostream>
 #include <sstream>
 #include <cstdlib>
+#include <list>
+
+std::string gpaConverter(int type, float gpa);
+float rigorCalc(int numOfAP, int numOfHonors, int numOfAPOffered);
+float calculateGPA(int type, std::list<float> grades);
+
+float calculateGPA(int type, std::list<float> grades) {
+    float gpa = 0;
+    for (auto grade : grades) {
+        gpa += grade;
+    }
+    if (type == 4) {
+        gpa /= grades.size();
+        gpaConverter(4, gpa);
+    }
+    else if (type == 100) {
+        gpa /= 100;
+    }
+}
+
+float rigorCalc(int numOfAP, int numOfHonors, int numOfAPOffered) {
+    float weightedHonors = numOfHonors * 1.5f;
+    float APs = (numOfAP/numOfAPOffered) * 3.0f;
+
+    if (weightedHonors != 0 && APs != 0) {
+        return weightedHonors + APs;
+    }
+    else {
+        throw std::invalid_argument("Invalid number of APs or Honors");
+    }
+}
 
 std::string gpaConverter(int type, float gpa) {
     if (type == 4) {
