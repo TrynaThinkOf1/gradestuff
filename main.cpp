@@ -26,23 +26,15 @@ std::string gpaConverter(int type, float gpa) {
             return result.str();
         }
         else {
-            float prevGPA = 0.0;
-            float prevValue = -1;
-
-            for (const auto& pair : conversionTable) {
-                float currentGPA = pair.first;
-                float currentValue = pair.second;
-                if (gpa <= prevGPA && gpa > currentGPA) {
-                    std::ostringstream result;
-                    result << "The 4 point scale GPA for " << gpa << " is " << prevValue << std::endl;
-                    return result.str();
-                }
-                prevGPA = currentGPA;
-                prevValue = currentValue;
-
-                return "GPA not found";
+            std::ostringstream result;
+            result << "(GPA Not Found on Conversion Table) The 4 point scale GPA for " << gpa << " is " << gpa/25 << std::endl;
+            return result.str();
             }
         }
+    else if (type == 100) {
+        std::ostringstream result;
+        result << "The 100 point scale GPA for " << gpa << " is " << gpa*25 << std::endl;
+        return result.str();
     }
 }
 
